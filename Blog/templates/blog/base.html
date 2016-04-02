@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% include 'blog/head.html' %}
+<body>
+{% block header %}
+    <h1><a href="{% url 'Blog:home' %}">Blog</a></h1>
+{% endblock %}
+{% block content %}{% endblock %}
+</body>
+</html>

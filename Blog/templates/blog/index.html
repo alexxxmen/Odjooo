@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <h1>Blog</h1>
-    <a href="{% url 'Blog:home' %}">Home</a>
-</body>
-</html>
+{% extends 'blog/base.html' %}
+{% block content %}
+
+{% for cat in categories %}
+    Category: {{ cat.name }}<br>
+    Counts: {{ cat.view_count }}<br>
+{% endfor%}
+    <br>
+    <br>
+{% for article in articles %}
+    {{ article.title }}<br>
+    {{ article.pub_date }}<br>
+    {{ article.text }}<br>
+    <a href="{% url 'Blog:details' article.id %}">Польностью</a>
+    <br>
+    <br>
+{% endfor%}
+{% endblock %}
