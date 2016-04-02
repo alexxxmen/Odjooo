@@ -1,5 +1,12 @@
 from django.shortcuts import render
+from Blog.models import Article
 
 
 def home(request):
-    return render(request, "index.html")
+    articles = Article.objects.all()
+    context = {
+        'title': "Blog",
+        'articles': articles,
+        'str': "string",
+    }
+    return render(request, "blog/index.html", context)

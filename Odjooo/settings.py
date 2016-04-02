@@ -56,8 +56,7 @@ ROOT_URLCONF = 'Odjooo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                 os.path.join(BASE_DIR, 'Blog/templates')]
+        'DIRS': []
         ,
         'APP_DIRS': True,
         'OPTIONS': {
