@@ -23,7 +23,7 @@ class Article(models.Model):
     modified = models.DateTimeField(auto_now=True)
     text = models.TextField()
     slug = models.SlugField(unique=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag, related_name='tags', related_query_name='tag')
 
     def __str__(self):

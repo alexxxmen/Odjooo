@@ -3,7 +3,7 @@ from Blog import views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
-    url(r'^article/(?P<article_id>\d+)/$', views.details, name='details'),
-    url(r'^category/(?P<category_id>\d+)/$', views.get_by_category, name='get_by_category'),
+    url(r'^article/(?P<article_id>\d+)/$', views.article_details, name='articledetails'),
+    url(r'^category/(?P<category_id>\d+)/$', views.articles_by_cat, name='articles_by_cat'),
 
 ]
