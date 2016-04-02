@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, Http404
 from Blog.models import Article, Category
 
 
@@ -14,5 +14,15 @@ def home(request):
 
 
 def details(request, article_id):
-    article = get_object_or_404(Article, pk=article_id)
-    return render(request, 'blog/details.html', {'article': article})
+    try:
+        article = Article.objects.get(pk=article_id)
+    except Article.DoesNotExist:
+        raise Http404("Page not found")
+
+    return render(request, 'blog/details.html', {'article': article, 'img': '<img src="/static/img/test.png">'})
+
+
+def get_by_category(request, category_id):
+
+    articles = Article.objects.filter(category=category_id)
+    return render(request, 'blog/index.html', {'articles': articles})
