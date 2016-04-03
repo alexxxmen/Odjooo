@@ -1,38 +1,39 @@
 {% extends 'base.html' %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-    <div class="main-container">
-            <div class="main wrapper clearfix">
+    <div class="container container-plus">
             {% if articles %}
+                <div class="row">
                 {% for art in articles %}
-                <article>
-                    <header>
-                        <h2>{{ art.title }}</h2>
-                    </header>
-                    <section>
-                        date of created: {{ art.pub_date }}<br>
-                        date of modified: {{ art.modified }}
-                    </section>
-                    <section>
-                        <p>{{ art.text|slice:":300" }}...</p>
-                    </section>
-                    <section>
-                        Category: {{ art.category }}
-                    </section>
-                    <section>
-                        Tags: {% for tag in art.tags.all %}
-                                {{ tag.name }}
-                                {% if forloop.first %},
-                                {% elif not forloop.last %},
-                                {% elif forloop.last %}
-                                {% endif %}
-                              {% endfor %}
-                    </section>
-                </article>
+                    <div class="col-md-4">
+                        <article>
+                            <header>
+                                <h2>{{ art.title }}</h2>
+                            </header>
+                            <section>
+                                created: {{ art.pub_date }}<br>
+                                modified: {{ art.modified }}<br>
+                                <br>
+                            </section>
+                            <section>
+                                <p>{{ art.text|slice:":300" }}...</p>
+                            </section>
+                            <section>
+                                Category: {{ art.category }}
+                            </section>
+                            <section>
+                                Tags: {% for tag in art.tags.all %}
+                                        {{ tag.name }}{% if forloop.first %},
+                                        {% elif not forloop.last %},
+                                        {% endif %}
+                                      {% endfor %}
+                            </section>
+                        </article>
+                    </div>
                 {% endfor %}
+                </div>
             {% else %}
                 Sorry, but I doesn't have articles yet :(
             {% endif %}
-            </div>
     </div>
 {% endblock %}
