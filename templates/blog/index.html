@@ -5,21 +5,21 @@
             {% if articles %}
                 <div class="row">
                 {% for art in articles %}
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <article>
                             <header>
-                                <h2>{{ art.title }}</h2>
+                                <h2><a href="{% url 'Blog:article_detail' art.id %}">{{ art.title }}</a></h2>
                             </header>
                             <section>
                                 created: {{ art.pub_date }}<br>
                                 modified: {{ art.modified }}<br>
                                 <br>
                             </section>
-                            <section>
+                            <section class="text-justify">
                                 <p>{{ art.text|slice:":300" }}...</p>
                             </section>
                             <section>
-                                Category: {{ art.category }}
+                                Category: <a href="{% url 'Blog:articles_by_cat' art.category_id %}">{{ art.category }}</a>
                             </section>
                             <section>
                                 Tags: {% for tag in art.tags.all %}
