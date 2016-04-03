@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% block title %}{{ title }}{% endblock %}
 {% block content %}
     <div class="main-container">
             <div class="main wrapper clearfix">
@@ -20,7 +20,13 @@
                         Category: {{ art.category }}
                     </section>
                     <section>
-                        Tags: {% for tag in art.tags.all %} {{ tag.name }} {% endfor %}
+                        Tags: {% for tag in art.tags.all %}
+                                {{ tag.name }}
+                                {% if forloop.first %},
+                                {% elif not forloop.last %},
+                                {% elif forloop.last %}
+                                {% endif %}
+                              {% endfor %}
                     </section>
                 </article>
                 {% endfor %}

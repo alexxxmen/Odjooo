@@ -9,7 +9,7 @@ def home(request):
     context = {
         'articles': articles,
         'categories': categories,
-        'title': 'Blog'
+        'title': 'Start App'
     }
     return render(request, 'blog/index.html', context)
 
