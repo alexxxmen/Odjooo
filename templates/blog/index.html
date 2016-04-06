@@ -1,39 +1,69 @@
 {% extends 'base.html' %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-    <div class="container container-plus">
-            {% if articles %}
-                <div class="row">
-                {% for art in articles %}
-                    <div class="col-md-3">
-                        <article>
-                            <header>
-                                <h2><a href="{% url 'Blog:article_detail' art.id %}">{{ art.title }}</a></h2>
-                            </header>
-                            <section>
-                                created: {{ art.pub_date }}<br>
-                                modified: {{ art.modified }}<br>
-                                <br>
-                            </section>
-                            <section class="text-justify">
-                                <p>{{ art.text|slice:":300" }}...</p>
-                            </section>
-                            <section>
-                                Category: <a href="{% url 'Blog:articles_by_cat' art.category_id %}">{{ art.category }}</a>
-                            </section>
-                            <section>
-                                Tags: {% for tag in art.tags.all %}
-                                        {{ tag.name }}{% if forloop.first %},
-                                        {% elif not forloop.last %},
-                                        {% endif %}
-                                      {% endfor %}
-                            </section>
-                        </article>
+    <div class="container">
+    <div class="blog-header">
+        <h1 class="blog-title">The Bootstrap Blog</h1>
+        <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+    </div>
+        {% if articles %}
+            <div class="row">
+                <div class="col-sm-8 blog-main">
+                    {% for art in articles %}
+                    <div class="blog-post">
+                        <h2 class="blog-post-title"><a href="{% url 'Blog:article_detail' art.id %}">{{ art.title }}</a></h2>
+                        <p class="blog-post-meta">
+                            created: {{ art.pub_date }}<br>
+                            modified: {{ art.modified }}<br>
+                            <br>
+                        </p>
+                        <div class="text-justify">
+                            <p>{{ art.text|slice:":300" }}...</p>
+                        </div>
+                        <div>
+                            Category: <a href="{% url 'Blog:articles_by_cat' art.category_id %}">{{ art.category }}</a>
+                        </div>
+                        <div>
+                            Tags: {% for tag in art.tags.all %}
+                                    {{ tag.name }}{% if forloop.first %},
+                                    {% elif not forloop.last %},
+                                    {% endif %}
+                                  {% endfor %}
+                        </div>
                     </div>
-                {% endfor %}
+                    {% endfor %}
                 </div>
+                <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+                    <div class="sidebar-module">
+                        <h4>Archives</h4>
+                        <ol class="list-unstyled">
+                          <li><a href="#">March 2014</a></li>
+                          <li><a href="#">February 2014</a></li>
+                          <li><a href="#">January 2014</a></li>
+                          <li><a href="#">December 2013</a></li>
+                          <li><a href="#">November 2013</a></li>
+                          <li><a href="#">October 2013</a></li>
+                          <li><a href="#">September 2013</a></li>
+                          <li><a href="#">August 2013</a></li>
+                          <li><a href="#">July 2013</a></li>
+                          <li><a href="#">June 2013</a></li>
+                          <li><a href="#">May 2013</a></li>
+                          <li><a href="#">April 2013</a></li>
+                        </ol>
+                    </div>
+                    <div class="sidebar-module">
+                        <h4>Elsewhere</h4>
+                        <ol class="list-unstyled">
+                          <li><a href="#">GitHub</a></li>
+                          <li><a href="#">Twitter</a></li>
+                          <li><a href="#">Facebook</a></li>
+                        </ol>
+                    </div>
+                </div><!-- /.blog-sidebar -->
+            </div><!-- /.row -->
+
+    </div><!-- /.container -->
             {% else %}
                 Sorry, but I doesn't have articles yet :(
             {% endif %}
-    </div>
 {% endblock %}
