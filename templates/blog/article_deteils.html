@@ -1,0 +1,32 @@
+{% extends 'blog/index.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 blog-main">
+                <div class="blog-post">
+                {% if article %}
+                    <h2 class="blog-title">{{ article.title }}</h2>
+                    <p class="blog-post-meta">
+                        Created: {{ article.pub_date }}<br>
+                        Modified: {{ article.modified }}
+                    </p>
+                    <div class="text-justify">
+                        <p>{{ article.text }}</p>
+                    </div>
+                    <div>
+                        Category: <a href="{% url 'Blog:articles_by_cat' article.category_id %}">{{ article.category }}</a>
+                    </div>
+                    <div>
+                        Tags: {% for tag in article.tags.all %}
+                                <a href="{% url 'Blog:articles_by_tag' tag.id %}">{{ tag.name }}</a>{% if forloop.first %},
+                                {% elif not forloop.last %},
+                                {% endif %}
+                              {% endfor %}
+                    </div>
+                {% else %}
+                <p>Sorry, but we have some problem's</p>
+                {% endif %}
+                </div>
+            </div>
+{% endblock %}
