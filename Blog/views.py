@@ -20,3 +20,7 @@ def article_details(request, article_id):
 
 def articles_by_cat(request, category_id):
     pass
+
+
+def articles_by_tag(request, tag_id):
+    pass

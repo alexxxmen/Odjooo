@@ -13,9 +13,8 @@
                     <div class="blog-post">
                         <h2 class="blog-post-title"><a href="{% url 'Blog:article_detail' art.id %}">{{ art.title }}</a></h2>
                         <p class="blog-post-meta">
-                            created: {{ art.pub_date }}<br>
-                            modified: {{ art.modified }}<br>
-                            <br>
+                            Created: {{ art.pub_date }}<br>
+                            Modified: {{ art.modified }}
                         </p>
                         <div class="text-justify">
                             <p>{{ art.text|slice:":300" }}...</p>
@@ -25,7 +24,7 @@
                         </div>
                         <div>
                             Tags: {% for tag in art.tags.all %}
-                                    {{ tag.name }}{% if forloop.first %},
+                                    <a href="{% url 'Blog:articles_by_tag' tag.id %}">{{ tag.name }}</a>{% if forloop.first %},
                                     {% elif not forloop.last %},
                                     {% endif %}
                                   {% endfor %}

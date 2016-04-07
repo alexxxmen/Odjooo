@@ -36,7 +36,7 @@ h6, .h6 {
  */
 
 .blog-masthead {
-  background-color: #428bca;
+  background-color: #265728;
   -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
           box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
 }
@@ -147,8 +147,12 @@ h6, .h6 {
 .blog-post-meta {
   margin-bottom: 20px;
   color: #999;
+  font-size: 16px;
 }
 
+.blog-post-title a{
+  color:#2F4F4F;
+}
 
 /*
  * Footer
