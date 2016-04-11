@@ -6,6 +6,7 @@
             <div class="col-lg-8 blog-main">
                 <div class="blog-post">
                 {% if article %}
+                    {% autoescape off %}
                     <h2 class="blog-title">{{ article.title }}</h2>
                     <p class="blog-post-meta">
                         Created: {{ article.pub_date }}<br>
@@ -19,11 +20,14 @@
                     </div>
                     <div>
                         Tags: {% for tag in article.tags.all %}
-                                <a href="{% url 'Blog:articles_by_tag' tag.id %}">{{ tag.name }}</a>{% if forloop.first %},
-                                {% elif not forloop.last %},
-                                {% endif %}
+                                <a href="{% url 'Blog:articles_by_tag' tag.id %}">{{ tag.name }}</a>
+                                    {% if forloop.last %}
+                                    {% elif forloop.first %},
+                                    {% elif not forloop.last %},
+                                    {% endif %}
                               {% endfor %}
                     </div>
+                    {% endautoescape %}
                 {% else %}
                 <p>Sorry, but we have some problem's</p>
                 {% endif %}

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, Http404
+from django.shortcuts import render, get_object_or_404
 from Blog.models import Article, Category, Tag
 
 
@@ -13,37 +13,36 @@ def home(request):
     return render(request, 'blog/index.html', context)
 
 
-def article_details(request, article_id):
-    try:
-        article = Article.objects.get(pk=article_id)
+def article_details(request, article_slug):
+        article = get_object_or_404(Article, slug=article_slug)
         context = {
             'article': article,
             'title': 'Start App'
         }
-        return render(request, 'blog/article_deteils.html', context)
-    except Article.DoesNotExist:
-        raise Http404
+        return render(request, 'blog/article_details.html', context)
 
 
 def articles_by_cat(request, category_id):
-    try:
         articles = Article.objects.filter(category=category_id)
         context = {
             'articles': articles,
             'title': 'Start App'
         }
         return render(request, 'blog/index.html', context)
-    except Article.DoesNotExist:
-        raise Http404
 
 
 def articles_by_tag(request, tag_id):
-    try:
         articles = Article.objects.filter(tags__id=tag_id)
         context = {
             'articles': articles,
             'title': 'Start App'
         }
         return render(request, 'blog/index.html', context)
-    except Article.DoesNotExist:
-        raise Http404
+
+
+def special_case(request, year):
+    articles = Article.objects.filter(pub_date__year=year)
+    context = {
+        'articles': articles
+    }
+    return render(request, 'blog/index.html', context)

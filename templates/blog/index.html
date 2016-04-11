@@ -11,20 +11,22 @@
                 <div class="col-sm-8 blog-main">
                     {% for art in articles %}
                     <div class="blog-post">
-                        <h2 class="blog-post-title"><a href="{% url 'Blog:article_details' art.id %}">{{ art.title }}</a></h2>
+                        <h2 class="blog-post-title"><a href="{% url 'Blog:article_details' art.slug %}">{{ art.title }}</a></h2>
                         <p class="blog-post-meta">
                             Created: {{ art.pub_date }}<br>
                             Modified: {{ art.modified }}
                         </p>
                         <div class="text-justify">
-                            <p>{{ art.text|slice:":300" }}...</p>
+                            <p>{% autoescape off %}{{ art.text|slice:":300" }}{% endautoescape %}...</p>
                         </div>
                         <div>
                             Category: <a href="{% url 'Blog:articles_by_cat' art.category_id %}">{{ art.category }}</a>
                         </div>
                         <div>
                             Tags: {% for tag in art.tags.all %}
-                                    <a href="{% url 'Blog:articles_by_tag' tag.id %}">{{ tag.name }}</a>{% if forloop.first %},
+                                    <a href="{% url 'Blog:articles_by_tag' tag.id %}">{{ tag.name }}</a>
+                                    {% if forloop.last %}
+                                    {% elif forloop.first %},
                                     {% elif not forloop.last %},
                                     {% endif %}
                                   {% endfor %}
