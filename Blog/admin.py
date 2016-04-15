@@ -25,7 +25,7 @@ class ArticleAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Публикация', {'fields': [('title', 'slug')]}
          ),
-        ('Содержимое', {'fields': [('category', 'text')]}
+        ('Содержимое', {'fields': [('text', 'category')]}
          ),
         ('Дата публикации', {'fields': [('pub_date', 'modified')]}
          ),
