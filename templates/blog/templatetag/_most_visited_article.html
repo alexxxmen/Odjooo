@@ -1,0 +1,6 @@
+<h4>Самые посещаемые</h4>
+<ol class="list-unstyled">
+{% for art in articles %}
+    <li><a href="{% url 'Blog:article_details' art.slug %}">{{ art.title }}</a></li>
+{% endfor %}
+</ol>

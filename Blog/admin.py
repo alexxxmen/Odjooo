@@ -4,14 +4,25 @@ from django import forms
 from Blog.models import Article, Category, Tag
 from tinymce.widgets import TinyMCE
 
+from ckeditor.widgets import CKEditorWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-class ArticleAdminForm(forms.ModelForm):
+
+class ArticleAdminFormTinyMCE(forms.ModelForm):
     class Meta:
         model = Article
         fields = '__all__'
         widgets = {
             'text': TinyMCE(),
         }
+
+
+class ArticleAdminFormCKEditor(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = '__all__'
+    text = forms.CharField(widget=CKEditorWidget())
+    text = forms.CharField(widget=CKEditorUploadingWidget())
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -29,12 +40,12 @@ class ArticleAdmin(admin.ModelAdmin):
          ),
         ('Дата публикации', {'fields': [('pub_date', 'modified')]}
          ),
-        ('Теги', {'fields': ['tags'], 'classes': ['collapse']}
+        ('Теги', {'fields': ['tags']}
          ),
         ('Статус', {'fields': ['status']}
          ),
     ]
-    form = ArticleAdminForm
+    form = ArticleAdminFormCKEditor
 
     def make_published(self, request, queryset):
         queryset.update(status='P')
@@ -46,7 +57,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
     def make_expired(self, request, queryset):
         updated = queryset.update(status='E')
-        if (updated == 1):
+        if updated == 1:
             massage_b = '1 запись была'
         else:
             massage_b = '%s записей были' %updated

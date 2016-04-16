@@ -1,4 +1,6 @@
 janusnic/p21v-django/
+upwork
+
 
 исправить структуру шаблонов
 base.html - > blog/base.html - > index.html and etc.

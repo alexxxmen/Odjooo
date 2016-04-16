@@ -47,3 +47,8 @@ class Article(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+class Statistic(models.Model):
+    article_id = models.ForeignKey(Article, related_name='statistic')
+    count = models.IntegerField(default=0)
